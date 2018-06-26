@@ -1,0 +1,61 @@
+//https://leetcode.com/problems/find-and-replace-in-string/description/
+class Solution {
+public:
+    struct myStruct
+    {
+        int index;
+        string source;
+        string target;
+    };
+    bool matchsource(string S, int startindex, string source)
+    {
+        int iter = startindex;
+        for(int i=0; i<source.length();i++)
+        {
+            if(S[iter+i]!=source[i])
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    string findReplaceString(string S, vector<int>& indexes, vector<string>& sources, vector<string>& targets) 
+    {
+        vector<myStruct> newtable;
+        for(int i=0; i<indexes.size(); i++)
+        {
+            myStruct temp;
+            temp.index = indexes[i];
+            temp.source = sources[i];
+            temp.target = targets[i];
+            newtable.push_back(temp);
+        }
+        std::sort(newtable.begin(),newtable.end(),[](myStruct const& a,myStruct const& b){return a.index<b.index;});
+        
+        string returnThis;
+        int iter = 0;           //iterate through all sources
+        for(int i=0; i<S.length(); i++)
+        {
+            if(newtable[iter].index == i)
+            {
+                if(matchsource(S,i,newtable[iter].source))
+                {
+                    returnThis+=newtable[iter].target;
+                    i+=newtable[iter].source.length()-1;
+                }
+                else
+                {
+                    returnThis+=S[i];
+                }
+                iter++;
+            }
+            else
+            {
+                returnThis+=S[i];
+            }
+        }
+        return returnThis;
+    }
+    
+};
