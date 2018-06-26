@@ -1,0 +1,26 @@
+//https://leetcode.com/problems/repeated-substring-pattern/description/
+//I cheated annd looked at the discussion first. But basically you take some char on the left and concatenate on the right to
+//see if it matches the original string. 
+
+class Solution {
+public:
+    bool repeatedSubstringPattern(string s) {
+        int length = s.length();
+        if(length!=0)
+        {
+            for(int i=1; i<=length/2;i++)
+            {
+                if(length%i==0)
+                    if(reorder(s,i) == s)
+                        return true;
+            }
+        }
+        return false;
+    }
+    string reorder(string in,int length)
+    {
+        string returnThis = in.substr(length);
+        returnThis+= in.substr(0,length);
+        return returnThis;
+    }
+};
