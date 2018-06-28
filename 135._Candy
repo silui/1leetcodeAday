@@ -1,0 +1,34 @@
+//https://leetcode.com/problems/candy/description/
+//Not the best runtime but will do for now
+//Don't actually need the candy vector and can use keep track of how many consecutive rises and falls to determine return value
+class Solution {
+public:
+    int candy(vector<int>& ratings) {
+        int tempsize = ratings.size();
+        vector<int> candies (tempsize,1);
+        for(int i=1; i<tempsize; i++)
+        {
+            if(ratings[i]>ratings[i-1])
+            {
+                candies[i]=candies[i-1]+1;
+            }
+        }
+        for(int i=tempsize-2;i>=0; i--)
+        {
+            if(ratings[i]>ratings[i+1] && candies[i] <= candies[i+1])
+            {
+                candies[i]=candies[i+1]+1;
+            }
+        }
+        
+        
+        int returnThis=0;
+        for(int temp : candies)
+        {
+            cout<<temp<<" ";
+            returnThis+=temp;
+        }
+        return returnThis;
+    }
+
+};
