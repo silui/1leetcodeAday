@@ -1,0 +1,30 @@
+//https://leetcode.com/problems/two-sum/description/
+//beats 90% solution using unordered_map
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        unordered_map<int,int> mymap;
+        vector<int> returnThis;
+
+        if(nums.size()==0)
+        {
+            return returnThis;
+        }
+        mymap[nums[0]]=0;
+        for(int i=1; i<nums.size();i++)
+        {
+            unordered_map<int,int>::iterator iter = mymap.find(target-nums[i]);
+            if(iter !=mymap.end())
+            {
+                returnThis.push_back(iter->second);
+                returnThis.push_back(i);
+                break;
+            }
+            else
+            {
+                mymap[nums[i]]=i;
+            }
+        }
+        return returnThis;
+    }
+};
