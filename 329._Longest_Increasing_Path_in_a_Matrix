@@ -1,0 +1,64 @@
+//https://leetcode.com/problems/longest-increasing-path-in-a-matrix/description/
+//dp approach, 426ms on the first implementation and 55ms on second implementation. Same concept but just cleaning up makes the world difference
+class Solution {
+public:
+    int returnOPT(vector<vector<int>> &OPT,const vector<vector<int>> &orig, int x,int y)
+    {
+        if(OPT[x][y]!=-1)   //OPT already calculated
+            return OPT[x][y];
+        int temp_max = 1;
+        
+        //check top first
+        if(y!=0 && orig[x][y-1]>orig[x][y] )        //not at top
+        {
+            temp_max = max(1+returnOPT(OPT,orig,x,y-1),temp_max);
+        }
+        if(x!=0 && orig[x-1][y]>orig[x][y])        //not at left
+        {
+            temp_max = max(1+returnOPT(OPT,orig,x-1,y),temp_max); 
+        }
+        if(x!=orig.size()-1 && orig[x+1][y]>orig[x][y])
+        {
+            temp_max = max(temp_max,1+returnOPT(OPT,orig,x+1,y)); 
+        }
+        if(y!=orig[x].size()-1 && orig[x][y+1]>orig[x][y])
+        {
+            temp_max = max(temp_max,1+returnOPT(OPT,orig,x,y+1)); 
+        }
+        OPT[x][y] = temp_max;
+        return temp_max;
+    }
+    
+    int longestIncreasingPath(vector<vector<int>>& matrix) 
+    {
+        if(matrix.size()==0)
+            return 0;
+        vector<vector<int>> OPT(matrix.size(),vector<int>(matrix[0].size(),-1));
+        int temp_max=1;
+        for(int i=0; i<matrix.size(); i++ )
+        {
+            for(int j=0; j<matrix[i].size();j++)
+            {
+                temp_max = max(temp_max,returnOPT(OPT,matrix,i,j));
+                
+            }
+        }
+        return temp_max;
+    }
+
+    void print_matrix(const vector<vector<int>> & inputmatrix)
+    {
+        cout<<"["<<endl;
+        for(vector<int> row: inputmatrix)
+        {
+            cout<<"[";
+            for(int value : row)
+            {
+                cout<<value<<" ";
+            }
+            cout<<"]"<<endl;
+                
+        }
+        cout<<endl<<"]";
+    }
+};
