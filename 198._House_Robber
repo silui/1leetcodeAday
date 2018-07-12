@@ -1,0 +1,31 @@
+//https://leetcode.com/problems/house-robber/description/
+//DP approach works, didn't cheat. house-robber-ii should be harder
+#include <algorithm>
+
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        if(nums.size()==0)
+        {
+            return 0;
+        }
+        if(nums.size()==1)
+        {
+            return nums[0];
+        }
+        if(nums.size()==2)
+        {
+            return max(nums[0],nums[1]);
+        }
+        vector<int> OPT;
+        OPT.push_back(nums[0]);
+        OPT.push_back(max(nums[1],nums[0]));
+        for(int i=2; i<nums.size();i++)
+        {
+            int max = std::max(nums[i]+OPT[i-2],OPT[i-1]);
+            OPT.push_back(max);
+        }
+        return OPT.back();
+        
+    }
+};
