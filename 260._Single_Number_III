@@ -1,0 +1,21 @@
+//https://leetcode.com/problems/single-number-iii/description/
+//ez, 2ez
+class Solution {
+public:
+    vector<int> singleNumber(vector<int>& nums) {
+        vector<int> returnThis;
+        unordered_map<int,int> map;
+        // for(const int& temp : nums)
+        for(int i=0; i<nums.size(); i++)
+        {
+            map[nums[i]]++;
+        }
+        for(const auto& temp : map)
+        {
+            if(temp.second==1)
+                returnThis.push_back(temp.first);
+        }
+        return returnThis;
+        
+    }
+};
