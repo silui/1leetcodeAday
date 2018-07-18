@@ -1,0 +1,21 @@
+//https://leetcode.com/problems/number-of-1-bits/description/
+//had to spend some time figure out the AND operation needs to be in quote
+
+class Solution {
+public:
+    int hammingWeight(uint32_t n) {
+        uint32_t mask = 1;
+        int returnThis = 0;
+        for(int i=0; i<32 ;i++)
+        {
+            if((mask & n) > 0)
+            {
+                cout<<mask<<endl;
+                returnThis++;
+            }    
+            mask=mask<<1;
+        }
+        
+        return returnThis;
+    }
+};
