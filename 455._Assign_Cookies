@@ -1,0 +1,25 @@
+//https://leetcode.com/problems/assign-cookies/description/
+//Greddy approach yields above 97%
+class Solution {
+public:
+    int findContentChildren(vector<int>& g, vector<int>& s) 
+    {
+        sort(g.begin(),g.end());
+        sort(s.begin(),s.end());
+        vector<int>::iterator gcursor = g.begin();
+        vector<int>::iterator scursor = s.begin();
+        int returnThis=0;
+        while(gcursor!=g.end() && scursor!=s.end())
+        {
+            if(*scursor >= *gcursor)
+            {
+                gcursor++;
+                scursor++;
+                returnThis++;
+            }
+            else
+                scursor++;
+        }
+        return returnThis;
+    }
+};
