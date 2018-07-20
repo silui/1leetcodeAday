@@ -1,0 +1,30 @@
+//https://leetcode.com/problems/minimum-time-difference/description/
+//Didn't cheat, idea is to sort the minute representation of given time and find the min interval
+class Solution {
+public:
+    
+    int minutes_to_zero(int input)
+    {
+        int hour = input/100;
+        return hour*60+(input-hour*100);
+        
+    }
+    int findMinDifference(vector<string>& timePoints) 
+    {
+        vector<int> timePointsInt;
+        for(string &temp : timePoints)
+        {
+            temp.erase(temp.begin()+2);
+            timePointsInt.push_back(minutes_to_zero(atoi(&temp[0])));
+        }
+        sort(timePointsInt.begin(),timePointsInt.end());
+        int minimum = 1440-timePointsInt[timePointsInt.size()-1] + timePointsInt[0];
+        cout<<minimum<<endl;
+        for(int i=1; i<timePointsInt.size();i++)
+        {
+            minimum = min(minimum,timePointsInt[i]-timePointsInt[i-1]);
+        }
+        return minimum;
+        
+    }
+};
