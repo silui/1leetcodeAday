@@ -1,0 +1,21 @@
+//https://leetcode.com/problems/climbing-stairs/description/
+//70. Climbing Stairs
+//first approach with recursive not fast enough. second approach to store calculated OPT is faster.
+class Solution {
+public:
+    int climbStairs(int n) 
+    {
+        if(n<4)
+            return n;
+        vector<int> OPT (n+1,0);
+        OPT[0]=0;
+        OPT[1]=1;
+        OPT[2]=2;
+        OPT[3]=3;
+        for(int i=4; i<OPT.size();i++)
+        {
+            OPT[i] = OPT[i-1]+OPT[i-2];
+        }
+        return OPT[n];
+    }
+};
