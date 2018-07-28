@@ -1,0 +1,47 @@
+//https://leetcode.com/problems/merge-intervals/description/
+//56. Merge Intervals
+//feels good, didn't look at discussion and got above 96%
+
+/**
+ * Definition for an interval.
+ * struct Interval {
+ *     int start;
+ *     int end;
+ *     Interval() : start(0), end(0) {}
+ *     Interval(int s, int e) : start(s), end(e) {}
+ * };
+ */
+class Solution {
+public:
+    vector<Interval> merge(vector<Interval>& intervals) {
+        sort(intervals.begin(),intervals.end(),[](const Interval &a,const Interval &b)
+             {
+                 return a.start < b.start;
+             });
+        vector<Interval> returnThis;
+        for(int i=0; i<intervals.size(); i++)
+        {
+            int start = intervals[i].start;
+            int end = intervals[i].end;
+            while(nextwithinrange(end,i,intervals))
+            {
+                end = max(end,intervals[i].end);
+            }
+            Interval temp(start,end);
+            returnThis.push_back(temp);
+        }
+        return returnThis;
+    }
+    bool nextwithinrange(const int& end,int &i, const vector<Interval> &intervals)
+    {
+        if(i==intervals.size()-1)
+            return false;
+        if(end>=intervals[i+1].start)
+        {
+            i++;
+            return true;
+        }
+        return false;
+            
+    }
+};

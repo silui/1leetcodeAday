@@ -1,0 +1,32 @@
+//https://leetcode.com/problems/interleaving-string/description/
+//97. Interleaving String
+//naive approach only beat 6%
+class Solution {
+public:
+    bool isInterleave(string s1, string s2, string s3) {
+        if(s3.size()!=s1.size()+s2.size())
+            return false;
+        return diffisInterleave(s1,s2,s3,0,0,0);
+    }
+    bool diffisInterleave(const string &s1,const string &s2,const string &s3,int s1cursor,int s2cursor,int pos3)
+    {
+        for(int i=pos3; i<s3.size(); i++)
+        {
+            if(s3[i] == s1[s1cursor])
+            {
+                if(s3[i]==s2[s2cursor])
+                    return ((diffisInterleave(s1,s2,s3,s1cursor+1,s2cursor,i+1)||diffisInterleave(s1,s2,s3,s1cursor,s2cursor+1,i+1)) ? true:false);
+                s1cursor++;
+            }
+            else if(s3[i]==s2[s2cursor])
+                s2cursor++;
+            else
+            {
+                return false;
+            }
+        }
+        if(s1cursor == s1.size() && s2cursor == s2.size())
+            return true;
+        return false;
+    }
+};
