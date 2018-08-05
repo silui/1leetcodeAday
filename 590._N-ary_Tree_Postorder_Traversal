@@ -1,0 +1,37 @@
+//https://leetcode.com/problems/n-ary-tree-postorder-traversal/description/
+//had to look at post order real quick but first pass no problem.
+/*
+// Definition for a Node.
+class Node {
+public:
+    int val;
+    vector<Node*> children;
+
+    Node() {}
+
+    Node(int _val, vector<Node*> _children) {
+        val = _val;
+        children = _children;
+    }
+};
+*/
+class Solution {
+public:
+    vector<int> postorder(Node* root) {
+        
+        vector<int> returnThis;
+        if(root==NULL)
+            return returnThis;
+        visit(root,returnThis);
+        return returnThis;
+        
+    }
+    void visit(Node* root,vector<int>& traversal)
+    {
+        for(auto temp : root->children)
+        {
+            visit(temp,traversal);
+        }
+        traversal.push_back(root->val);
+    }
+};
