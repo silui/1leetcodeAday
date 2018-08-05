@@ -1,0 +1,60 @@
+//https://leetcode.com/problems/split-linked-list-in-parts/description/
+//This could be a bit faster by changing some logic, but I am happy with this.
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<ListNode*> splitListToParts(ListNode* root, int k) {
+        vector<ListNode*> returnThis;
+        int list_size=0;
+        for(ListNode *rootcpy = root; rootcpy!=NULL ; rootcpy=rootcpy->next)
+        {
+            list_size++;
+        }
+        if(list_size < k)
+        {
+            while(root!=NULL)
+            {
+                ListNode* temp = new ListNode(root->val);
+                returnThis.push_back(temp);
+                root=root->next;
+            }
+            while(returnThis.size()!=k)
+            {
+                returnThis.push_back(NULL);
+            }
+        }
+        else
+        {
+            int remainder = list_size%k;
+            while(root!=NULL)
+            {
+                ListNode* temp = new ListNode(root->val);
+                ListNode* cursor = temp;
+                root = root->next;
+                for(int i=1; i<list_size/k;i++)
+                {
+                    ListNode* next = new ListNode(root->val);
+                    cursor->next = next;
+                    root = root->next;
+                    cursor = next;
+                }
+                if(remainder!=0)
+                {
+                    cursor->next = new ListNode(root->val);
+                    root=root->next;
+                    remainder--;
+                }
+                returnThis.push_back(temp);
+            }
+        }
+        return returnThis;        
+    }
+};
+
