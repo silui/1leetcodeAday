@@ -1,0 +1,52 @@
+//https://leetcode.com/problems/combination-sum/description/
+//Stuck on the vector mani a little bit but figure it out it nees a copy of the argument vector
+class Solution {
+public:
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<vector<int>> returnThis;
+        sort(candidates.begin(), candidates.end());
+        for(int i=0; i<candidates.size(); i++)
+        {
+            if(candidates[i]>target)
+            {
+                break;
+            }
+            else if(candidates[i]==target)
+            {
+                vector<int> temp = {candidates[i]};
+                returnThis.push_back(temp);
+            }
+            else
+            {
+                vector<int> temp = {candidates[i]};
+                dpcombinfinder(candidates, target-candidates[i], i, temp, returnThis);
+            }
+        }
+        return returnThis; 
+    }
+    void dpcombinfinder(const vector<int>& candidates, int target, int index,vector<int> current, vector<vector<int>>& finalDest)
+    {
+
+        for(int i=index; i<candidates.size(); i++)
+        {
+            if(candidates[i]>target)
+            {
+                break;
+            }
+            else if(candidates[i]==target)
+           {
+
+                current.push_back(target);
+                finalDest.push_back(current);
+                break;
+            }
+            else
+            {
+                vector<int> cur_cpy = current;
+                cur_cpy.push_back(candidates[i]);
+                // current.push_back(candidates[i]);
+                dpcombinfinder(candidates, target-candidates[i], i, cur_cpy, finalDest);
+            }
+        }
+    }
+};
