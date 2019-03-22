@@ -1,0 +1,9 @@
+class Solution:
+    def countBits(self, num: int) -> List[int]:
+        returnThis = [0,1,1,2,1,2,2,3]
+        q=0
+        while(len(returnThis)<=num):
+            for i in returnThis[len(returnThis)-(8*pow(2,q)):len(returnThis)]:
+                returnThis.append(i+1)
+            q+=1
+        return returnThis[:num+1]
