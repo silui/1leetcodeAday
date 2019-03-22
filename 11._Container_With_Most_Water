@@ -1,0 +1,14 @@
+class Solution:
+    def maxArea(self, height: List[int]) -> int:
+        leftptr = 0
+        rightptr = len(height)-1
+        maxarea = 0
+        while(leftptr != rightptr):
+            maxarea = max(maxarea, (rightptr-leftptr)*min(height[rightptr],height[leftptr]))
+            # print(leftptr,rightptr)
+            if(height[leftptr] < height[rightptr]):
+                leftptr+=1
+            else:
+                rightptr-=1
+        return maxarea
+            
