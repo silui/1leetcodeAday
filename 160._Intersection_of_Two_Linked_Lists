@@ -1,0 +1,31 @@
+#Calculate length first, then get then on the same starting point, then check for equality one by one
+class Solution(object):
+    def getIntersectionNode(self, headA, headB):
+        """
+        :type head1, head1: ListNode
+        :rtype: ListNode
+        """
+        tempA = headA
+        tempB = headB
+        lengthA = 0
+        lengthB = 0
+        while(tempA):
+            lengthA+=1
+            tempA=tempA.next
+        while(tempB):
+            lengthB+=1
+            tempB=tempB.next
+        while(lengthA!=lengthB):
+            if(lengthA>lengthB):
+                headA=headA.next
+                lengthA-=1
+            else:
+                headB=headB.next
+                lengthB-=1
+        while(headA):
+            if(headA==headB):
+                return headA
+            else:
+                headA=headA.next
+                headB=headB.next
+        return None
