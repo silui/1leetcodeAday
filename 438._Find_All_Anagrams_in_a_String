@@ -1,0 +1,20 @@
+#Sliding window, have a hash on tempmap and check it with p hash in O(n) manner.
+from collections import Counter
+class Solution:
+    def findAnagrams(self, s: str, p: str) -> List[int]:
+        masterMap = Counter(p)
+        tempMap=Counter(s[0:len(p)-1])
+        returnThis = []
+        for i in range(len(s)-len(p)+1):
+            newcharpos = i+len(p)-1
+            if(s[newcharpos] in tempMap):
+                tempMap[s[newcharpos]] +=1
+            else:
+                tempMap[s[newcharpos]] =1
+            if tempMap==masterMap:
+                returnThis.append(i)
+            if(tempMap[s[i]]==1):
+                del tempMap[s[i]]
+            else:
+                tempMap[s[i]]-=1
+        return returnThis
