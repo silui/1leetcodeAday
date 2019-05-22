@@ -1,0 +1,17 @@
+class Solution:
+    def isValid(self, s: str) -> bool:
+        dicti = {
+            '{':'}',
+            '[':']',
+            '(':')'
+        }
+        stack = []
+        for char in s:
+            if char in dicti:
+                stack.append(dicti[char])
+            else:
+                if(len(stack)!=0 and stack.pop()==char):
+                    continue
+                else:
+                    return False
+        return True if len(stack)==0 else False
