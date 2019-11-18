@@ -1,0 +1,20 @@
+// Beats 95%
+import "fmt"
+var lookuptable map[int]int 
+func twoSum(nums []int, target int) []int {
+    lookuptable = make(map[int]int)
+    for i:=0; i<len(nums); i++ {
+        lookuptable[nums[i]] = i
+    }
+    for i:=0; i<len(nums); i++ {
+        // i!=lookuptable[target-nums[i]]),
+        val, ok:= lookuptable[target-nums[i]]
+        if ok && i!=val{
+            // fmt.Println(lookuptable[target-nums[i]])
+            var returnthis []int = []int{i,lookuptable[target-nums[i]]}
+            return returnthis
+        }
+    }
+    var returnthis []int
+    return returnthis
+}
