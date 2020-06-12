@@ -1,0 +1,60 @@
+//This is ugly code but it works
+
+func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
+    l1_pointer := l1
+    l2_pointer := l2
+    carry := false
+    ret := &ListNode{Val:0, Next: nil}
+    ret_pointer := ret
+    for l1_pointer != nil && l2_pointer != nil{
+        l1l2sum := l1_pointer.Val + l2_pointer.Val
+        if carry == true{
+            l1l2sum += 1
+            carry = false
+        }
+        if l1l2sum > 9{
+            l1l2sum = l1l2sum-10
+            carry = true
+        }
+        ret_pointer.Val = l1l2sum
+        if l1_pointer.Next != nil && l2_pointer.Next != nil{
+            ret_pointer.Next = &ListNode{Val:0, Next: nil}
+            ret_pointer = ret_pointer.Next            
+        }
+        l1_pointer = l1_pointer.Next
+        l2_pointer = l2_pointer.Next
+    }
+    for l1_pointer != nil{
+        temp := l1_pointer.Val
+        if carry == true{
+            temp += 1
+            carry = false
+        }
+        if temp > 9{
+            carry = true
+            temp -= 10
+        }
+        ret_pointer.Next = &ListNode{Val:temp, Next: nil}
+        ret_pointer = ret_pointer.Next
+        l1_pointer = l1_pointer.Next
+    }
+    for l2_pointer != nil{
+        temp := l2_pointer.Val
+        if carry == true{
+            temp += 1
+            carry = false
+        }
+        if temp > 9{
+            carry = true
+            temp -= 10
+        }
+        ret_pointer.Next = &ListNode{Val:temp, Next: nil}
+        ret_pointer = ret_pointer.Next
+        l2_pointer = l2_pointer.Next
+    }
+    // fmt.Println(carry)
+    if carry == true{
+        ret_pointer.Next = &ListNode{Val: 1, Next: nil}
+    }
+    return ret
+}
